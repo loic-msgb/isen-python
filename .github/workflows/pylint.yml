@@ -19,9 +19,5 @@ jobs:
         python -m pip install --upgrade pip
         pip install pylint
     - name: Analysing the code with pylint
-      run: |
-<<<<<<< HEAD
+      run: 
         pylint $(git ls-files '*.py')
-=======
-        pylint $(git ls-files '*.py')
->>>>>>> d0a4b2d0d62921b2b8edfdcbdcdaded82caf13af
