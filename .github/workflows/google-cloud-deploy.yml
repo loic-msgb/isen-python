@@ -38,3 +38,11 @@ jobs:
       - name: Push Docker image to Artifact Registry
         run: |
             docker push europe-west1-docker.pkg.dev/cybernetic-muse-458208-f7/isen-python/isen-python:latest
+
+      - name: Deploy to Google Cloud Run
+        uses: google-github-actions/deploy-cloudrun@v2
+        with:
+          service: isen-python-auto
+          image: europe-west1-docker.pkg.dev/cybernetic-muse-458208-f7/isen-python/isen-python:latest
+          region: europe-west1
+          project_id: cybernetic-muse-458208-f7
