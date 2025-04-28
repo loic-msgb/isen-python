@@ -42,3 +42,10 @@ jobs:
         with:
           sbom: sbom.json
           severity-cutoff: critical  # Modifier ici pour accepter les vulnérabilités de niveau high et plus
+          output-format: table
+          output-file: grype-report
+      - name: Upload SBOM as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: report
+          path: grype-report
