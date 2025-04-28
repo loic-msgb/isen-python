@@ -30,7 +30,7 @@ jobs:
 
       - name: Lint Python files
         run: |
-          pylint --disable=C,R0801 --fail-under=7 unit_tests/test_theme.py integration_tests/test_dark_theme_toggle.py
+          pylint --disable=C,R0801 --fail-under=7 unit_tests/test_theme.py integration_tests/test_dark_theme.py
 
       - name: Set up Node.js
         uses: actions/setup-node@v4

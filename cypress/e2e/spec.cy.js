@@ -27,30 +27,40 @@ describe('Create and connect to an account', () => {
 
 describe('Put item in favourite', () => {
   it('Connect to OC commerce and put in favourite', () => {
-
-    // In this test you should load the home url and connect with the previous account
-    // You will go to favourite pages to make sure there is no favourite
-    // Then go back to home
-    // You will add an item to favourite
-    // You will go to favourite pages to confirm item is here
-    // You will then delete the item an check it has been successfully deleted
-    cy.visit('/home')
+    cy.visit('/user/login')
     cy.get('[id^=your_name]').type('fakeuser')
     cy.get('[id^=your_pass]').type('1hstesh<23456789')
     cy.get('form').contains('Log in').click()
     cy.url().should('include', '/home')
     cy.contains('FAVOURITE').click()
-    cy.url().should('include', '/user/favourite')
-    cy.contains('No favourite yet')
-    cy.visit('/home')
-    cy.get('[id^=fav]').first().click()
-    cy.contains('FAVOURITE').click()
-    cy.url().should('include', '/user/favourite')
-    cy.get('[id^=del]').first().click()
-    cy.contains('No favourite yet')
-  })
-})
+    cy.url().should('include', '/favourite')
+    cy.get('body').then(($body) => {
+      if ($body.find('table.table').length === 0) {
+        cy.contains('No Product in your favourite list').should('be.visible')
+      } else {
+        cy.get('.fa-heart').each(($heart) => {
+          cy.wrap($heart).click()
+          cy.wait(500) 
+        })
+        cy.reload()
+        cy.contains('No Product in your favourite list').should('be.visible')
+      }
+    })
 
+    cy.contains('OC-commerce').click()
+    cy.url().should('include', '/home')
+    cy.get('.col-md-6.col-lg-4').first().trigger('mouseover')
+    cy.get('.fa-heart').first().click()
+    cy.get('.col-md-6.col-lg-4').first().trigger('mouseover')
+    cy.contains('FAVOURITE').click()
+    cy.url().should('include', '/favourite')
+    cy.get('table.table').should('be.visible')
+    cy.get('table.table tbody tr').should('have.length.at.least', 1)
+    cy.get('.fa-heart').first().click()
+    cy.wait(500) 
+    cy.contains('No Product in your favourite list').should('be.visible')
+      })
+})
 describe('Toggle Dark Mode', () => {
   it('Connect to OC commerce and toggle dark mode', () => {
     cy.visit('/home')
