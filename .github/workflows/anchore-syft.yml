@@ -17,7 +17,7 @@ jobs:
           with:
             source: dir:.
             format: syft-json
-            output-file: sbom.syft.json
+            output-file: isen-python-sbom.syft-json
  
  
   sbom-scan:
