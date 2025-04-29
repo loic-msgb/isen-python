@@ -19,7 +19,7 @@ jobs:
         
         - name: Build and run application with Docker
           run: |
-            docker-compose up -d
+            docker compose up -d
             # Wait for the application to be fully up
             sleep 15
         
@@ -42,4 +42,4 @@ jobs:
         
         - name: Stop Docker containers
           if: always()
-          run: docker-compose down
+          run: docker compose down
