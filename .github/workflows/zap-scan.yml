@@ -19,6 +19,15 @@ jobs:
         
         - name: Build and run application with Docker
           run: |
+            # Créer un docker-compose.yml simple si vous n'en avez pas
+            echo "version: '3'
+            services:
+              app:
+                build: .
+                ports:
+                  - '8080:8080'" > docker-compose.yml
+            
+            # Utiliser le fichier nouvellement créé
             docker compose up -d
             # Wait for the application to be fully up
             sleep 15
